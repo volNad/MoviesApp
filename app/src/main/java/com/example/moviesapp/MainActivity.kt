@@ -29,6 +29,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+
         database = Firebase
             .database("https://moviesapp-7e597-default-rtdb.europe-west1.firebasedatabase.app/")
             .reference
@@ -41,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         val signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            .build()
+           .build()
         signInLauncher.launch(signInIntent)
 
     }
@@ -50,17 +52,16 @@ class MainActivity : AppCompatActivity() {
     private fun onSignInResult(result: FirebaseAuthUIAuthenticationResult) {
         val response = result.resultCode
         if (result.resultCode == RESULT_OK) {
-            // Successfully signed in
+           // Successfully signed in
             val authUser = FirebaseAuth.getInstance().currentUser
             authUser?.let {
                 val email = it.email.toString()
-                val uid = it.uid
+               val uid = it.uid
                 val firebaseUser = User(email, uid)
                 database.child("users").child(uid).setValue(firebaseUser)
                 val intent = Intent(this@MainActivity, MoviesActivity::class.java)
                 startActivity(intent)
             }
-            // ...
         } else {
             Toast.makeText(this@MainActivity,
                 "Something wrong with registration",
@@ -68,11 +69,8 @@ class MainActivity : AppCompatActivity() {
                 .show()
 
             Log.d("testLogs", "RegistrationActivity registration failure")
-            // Sign in failed. If response is null the user canceled the
-            // sign-in flow using the back button. Otherwise check
-            // response.getError().getErrorCode() and handle the error.
-            // ...
+
         }
-    }
+   }
 
 }

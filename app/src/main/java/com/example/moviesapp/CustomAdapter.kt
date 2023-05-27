@@ -8,12 +8,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class CustomAdapter(private val mList: List<Result>?): RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+class CustomAdapter(
+    private val mList: List<Result>?,
+    val mItemClickListener: ItemClickListener
+): RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-   inner class ViewHolder(ItemView: View): RecyclerView.ViewHolder(ItemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.imageView)
-
+    interface ItemClickListener{
+        fun onItemClick (position: Int)
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -35,4 +38,14 @@ class CustomAdapter(private val mList: List<Result>?): RecyclerView.Adapter<Cust
     override fun getItemCount(): Int {
         return mList!!.size
     }
+
+    inner class ViewHolder(ItemView: View): RecyclerView.ViewHolder(ItemView) {
+        val imageView: ImageView = itemView.findViewById(R.id.imageView)
+        init {
+            ItemView.setOnClickListener {
+                mList?.get(position)?.id?.let { it -> mItemClickListener.onItemClick(it) }
+            }
+        }
+    }
+
 }
