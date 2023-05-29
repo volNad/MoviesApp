@@ -1,6 +1,10 @@
-package com.example.moviesapp
+package com.example.moviesapp.data
 
 
+import com.example.moviesapp.data.Genre
+import com.example.moviesapp.data.ProductionCompany
+import com.example.moviesapp.data.ProductionCountry
+import com.example.moviesapp.data.SpokenLanguage
 import com.google.gson.annotations.SerializedName
 
 data class MovieDetails(

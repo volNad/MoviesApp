@@ -1,5 +1,8 @@
-package com.example.moviesapp
+package com.example.moviesapp.model.apis
 
+import com.example.moviesapp.util.Constants
+import com.example.moviesapp.data.MovieDetails
+import com.example.moviesapp.data.Movies
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

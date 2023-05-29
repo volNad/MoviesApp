@@ -1,20 +1,21 @@
-package com.example.moviesapp
+package com.example.moviesapp.view.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviesapp.R
+import com.example.moviesapp.data.Result
 import com.squareup.picasso.Picasso
 
 class CustomAdapter(
-    private val mList: List<Result>?,
+    private val mList: List<Result?>,
     val mItemClickListener: ItemClickListener
-): RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
-    interface ItemClickListener{
-        fun onItemClick (position: Int)
+    interface ItemClickListener {
+        fun onItemClick(position: Int)
     }
 
 
@@ -28,9 +29,8 @@ class CustomAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = mList?.get(position)
 
-        Picasso.get().load("https://image.tmdb.org/t/p/w500" + mList?.get(position)?.posterPath).into(holder.imageView)
-
-
+        Picasso.get().load("https://image.tmdb.org/t/p/w500" + mList?.get(position)?.posterPath)
+            .into(holder.imageView)
 
 
     }
@@ -39,8 +39,9 @@ class CustomAdapter(
         return mList!!.size
     }
 
-    inner class ViewHolder(ItemView: View): RecyclerView.ViewHolder(ItemView) {
+    inner class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val imageView: ImageView = itemView.findViewById(R.id.imageView)
+
         init {
             ItemView.setOnClickListener {
                 mList?.get(position)?.id?.let { it -> mItemClickListener.onItemClick(it) }
